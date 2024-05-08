@@ -151,6 +151,17 @@ class Spreadsheet:
         cellsRange["sheetId"] = self.sheetId
         return cellsRange
 
+    def prepare_setColumnsFilter(self, rowIndex, startIndex, endIndex):
+        if self.sheetId is None:
+            raise SheetNotSetError()
+        self.requests.append({"setBasicFilter": {
+                "filter": {"range": {
+                        "sheetId": self.sheetId,
+                        "startRowIndex": rowIndex,
+                        "startColumnIndex": startIndex,
+                        "endColumnIndex": endIndex
+                    }}}})
+
     def prepare_setDimensionPixelSize(self, dimension, startIndex, endIndex, pixelSize):
         if self.sheetId is None:
             raise SheetNotSetError()
